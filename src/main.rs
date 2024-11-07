@@ -49,21 +49,17 @@ impl Player {
 fn main() -> crossterm::Result<()> {
     let mut map = Map::generate(10, 10);
     let mut player = Player::new();
-    let mut enemy = Enemy::new(10, 10); // Gera o inimigo com base no tamanho do mapa
+    let mut enemy = Enemy::new(10, 10);
 
-    // Configura o terminal para o modo de entrada direta
     terminal::enable_raw_mode()?;
     let mut stdout = io::stdout();
 
     loop {
-        // Limpa o terminal e reposiciona o cursor no topo
         execute!(stdout, terminal::Clear(ClearType::All), cursor::MoveTo(0, 0))?;
 
-        // Renderiza o mapa, a posição do jogador e do inimigo
         map.display(&player.position, &enemy.position);
         println!("Use as teclas W, A, S, D para mover. Aperte Q para sair.");
 
-        // Verifica a entrada de teclado sem esperar por "Enter"
         if event::poll(Duration::from_millis(100))? {
             if let Event::Key(key_event) = event::read()? {
                 match key_event.code {
@@ -78,11 +74,9 @@ fn main() -> crossterm::Result<()> {
             }
         }
 
-        // Verifica se o jogador encontrou o inimigo
         if enemy.position == player.position {
             player.take_damage(10);
 
-            
             if player.health <= 0 {
                 println!("Game Over!");
                 break;
@@ -90,7 +84,6 @@ fn main() -> crossterm::Result<()> {
         }
     }
 
-    // Restaura o modo normal do terminal ao sair
     terminal::disable_raw_mode()?;
     Ok(())
 }

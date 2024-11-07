@@ -8,11 +8,11 @@ pub struct Enemy {
 impl Enemy {
     pub fn new(width: usize, height: usize) -> Self {
         let mut rng = rand::thread_rng();
-        let x = rng.gen_range(1..width);  // Gera posição X
-        let y = rng.gen_range(1..height); // Gera posição Y
+        let x = rng.gen_range(1..width); 
+        let y = rng.gen_range(1..height); 
         
         Enemy {
-            health: 50,  // Inicializa o campo health
+            health: 50,
             position: (x, y),
         }
     }
