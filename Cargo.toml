@@ -1,0 +1,8 @@
+[package]
+name = "the_game"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.8" # ou a última versão disponível
+crossterm = "0.22"
